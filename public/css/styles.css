@@ -1,0 +1,80 @@
+:root {
+    --bordercolor: rgb(158, 255, 253);
+}
+
+body {
+    background: linear-gradient(
+        260deg,
+        rgb(255, 206, 241),
+        rgb(132, 255, 169),
+        rgb(158, 255, 253),
+        white,
+        rgb(255, 206, 241)
+    );
+    margin: 0;
+    box-sizing: 0;
+}
+
+#head {
+    width: 500px;
+    height: 100px;
+    position: relative;
+    top: 30px;
+    left: 50px;
+}
+#head p {
+    color: white;
+    text-shadow: 5px 5px rgb(255, 206, 241);
+    font-size: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+#head h2 {
+    position: absolute;
+    top: 0;
+    left: 250px;
+    font-size: 20px;
+    color: rgb(255, 206, 241);
+    text-shadow: 5px 5px rgb(158, 255, 253);
+}
+
+#imagecontainer {
+    position: relative;
+    top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+#imagecontainer li {
+    list-style-type: none;
+}
+.singleimage {
+    border: 5px solid var(--bordercolor);
+    border-radius: 10%;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+.singleimageimg {
+    height: 100%;
+}
+.imagetitle {
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    color: var(--bordercolor);
+    text-align: center;
+}
+
+.singleimage:hover {
+    border: 5px solid yellow;
+    color: yellow;
+}
