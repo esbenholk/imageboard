@@ -15,7 +15,7 @@ body {
     box-sizing: 0;
 }
 
-#head {
+/* #head {
     width: 500px;
     height: 100px;
     position: relative;
@@ -38,8 +38,20 @@ body {
     font-size: 20px;
     color: rgb(255, 206, 241);
     text-shadow: 5px 5px rgb(158, 255, 253);
-}
+} */
 
+/* #main {
+
+    top: 0;
+    left: 0;
+} */
+#upload {
+    width: 100%;
+    postion: sticky;
+    top: 0;
+    left: 0;
+    background: var(--bordercolor);
+}
 #imagecontainer {
     position: relative;
     top: 100px;
@@ -55,8 +67,8 @@ body {
 .singleimage {
     border: 5px solid var(--bordercolor);
     border-radius: 10%;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     display: flex;
     flex-direction: column;

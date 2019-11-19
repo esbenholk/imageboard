@@ -3,7 +3,11 @@ new Vue({
     data: {
         name: "esben",
         seen: true,
-        images: []
+        images: [],
+        title: "",
+        description: "",
+        username: "",
+        file: null
     },
     mounted: function() {
         var me = this;
@@ -16,9 +20,28 @@ new Vue({
             .catch(err => console.log("error", err));
     },
     methods: {
-        method1: function(e) {
-            console.log("the method (as Vue.method.method1), works");
-            console.log("eventinstance (default passed value)", e);
+        handleClick: function(e) {
+            var datathis = this;
+            e.preventDefault();
+            console.log("this", this);
+
+            var fd = new FormData();
+            fd.append("file", this.file);
+            fd.append("title", this.title);
+            fd.append("description", this.description);
+            fd.append("username", this.username);
+
+            axios
+                .post("/upload", fd)
+                .then(function(res) {
+                    datathis.images.unshift(res.data.image);
+                })
+                .catch(function(err) {
+                    console.log("error in post upload");
+                });
+        },
+        handleChange: function(e) {
+            this.file = e.target.files[0];
         }
     }
 });

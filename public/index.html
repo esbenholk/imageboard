@@ -3,24 +3,34 @@
 <head>
     <title></title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/vue.js"></script>
 </head>
 <body>
-    <div id="head">
+    <!-- <div id="head">
         <p> T T L </p>
         <h2> time to live <br> an archive of internet artefacts </h2>
-    </div>
+    </div> -->
 
     <div id="main">
 
-        <div id="imagecontainer">
+        <div id="uploadform">
+            <form id="upload">
+                <input v-model="title" type="text" name="title" placeholder="title">
+                <input v-model="description" type="text" name="description" placeholder="description">
+                <input v-model="username" type="text" name="username" placeholder="username">
+                <input @change="handleChange" type="file" name="file" accapt="image/*">
+                <button  @click.prevent.default="handleClick"> submit </button>
+            </form>
+        </div>
 
-            <li v-for="image in images" @click="method1()">
+
+        <div id="imagecontainer">
+            <li v-for="image in images">
                 <div class="singleimage">
                 <p class="imagetitle"> {{image.title}} </p>
                 <img class="singleimageimg" :src="image.url" alt="image"></img>
                 </div>
             </li>
-
         </div>
 
     </div>
@@ -29,7 +39,7 @@
 
 
 
-    <script src="/js/vue.js"></script>
+
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
