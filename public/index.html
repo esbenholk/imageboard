@@ -22,7 +22,7 @@
                 <input v-model="title" type="text" name="title" placeholder="title">
                 <input v-model="description" type="text" name="description" placeholder="description">
                 <input v-model="username" type="text" name="username" placeholder="username">
-                <input @change="handleChange" type="file" name="file" accept="image/*">
+                <input id="file" @change="handleChange" type="file" name="file" accept="image/*">
                 <button  @click.prevent.default="handleClick"> submit </button>
             </form>
         </div>
@@ -46,16 +46,23 @@
     </div>
 
     <script type="text/x-template" id="imagemodaltemplate">
-        <div id="imagemodalcontainer" @click="sendClosingRequestToParent">
+        <div id="imagemodalcontainer" @click.self="sendClosingRequestToParent">
             <div id="imagemodal">
                     <img :src="image.url" alt="image">
                     <p> {{image.title}} by {{image.username}} at {{image.created_at}} </p>
                     <p> {{image.description}} </p>
-            
+
+                <div id="comments">
+                    <li v-for="comment in comments" id="singlecomment">
+
+                        <p class="comment"> {{comment.comment}}</p>
+                        <p class="commentauther"> by {{comment.username}} at {{comment.created_at}}</p>
+                    </li>
+                </div>
                 <form id="comment">
                     <input v-model="comment" type="text" name="comment" placeholder="comment">
                     <input v-model="username" type="text" name="username" placeholder="username">
-                    <button  @click.prevent.default="handleClick"> submit </button>
+                    <button  @click.prevent.default="handleClickComment"> comment </button>
                 </form>
             </div>
         </div>

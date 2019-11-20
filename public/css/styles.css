@@ -120,3 +120,22 @@ body {
 #imagemodal img {
     width: 500px;
 }
+
+#comments {
+    width: 100%;
+}
+#singlecomment {
+    background: rgba(255, 255, 255, 0.5);
+    margin: 2px;
+}
+.comment {
+    /* float: left; */
+}
+.commentauther {
+    /* float: right; */
+    font-size: 10px;
+    color: grey;
+}
+#comments li {
+    list-style-type: none;
+}

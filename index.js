@@ -30,11 +30,11 @@ app.use(express.static("./public"));
 app.use(express.json());
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    const { title, desc, username } = req.body;
+    const { title, description, username } = req.body;
     const imageURL = `${s3Url}/${req.file.filename}`;
-
+    console.log(description);
     databaseActions
-        .uploadImages(imageURL, username, title, desc)
+        .uploadImages(imageURL, username, title, description)
         .then(result => {
             res.json({
                 image: result.rows[0],
@@ -48,7 +48,20 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
-app.get("/images:param", (req, res) => {
+app.post("/comment", (req, res) => {
+    databaseActions
+        .comment(req.body.comment, req.body.username, req.body.userid)
+        .then(result => {
+            res.json({
+                comment: result.rows[0],
+                success: true
+            });
+            console.log(result.rows[0]);
+        })
+        .catch(err => console.log(err));
+});
+
+app.get("/images", (req, res) => {
     databaseActions
         .getImages()
         .then(results => {
@@ -57,12 +70,17 @@ app.get("/images:param", (req, res) => {
         .catch(err => console.log("wrong db query"));
 });
 
-app.post("/image", (req, res) => {
-    console.log("look for dta from components.js", req.body.params.id);
-    databaseActions
-        .getImage(req.body.params.id)
+app.get("/:id", (req, res) => {
+    Promise.all([
+        databaseActions.getImage(req.params.id),
+        databaseActions.getComments(req.params.id)
+    ])
         .then(results => {
-            res.json(results.rows[0]);
+            console.log(results[1].rows[0]);
+            res.json({
+                image: results[0].rows[0],
+                comments: results[1].rows
+            });
         })
         .catch(err => console.log("wrong db query for imagemodal"));
 });

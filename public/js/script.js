@@ -35,6 +35,9 @@ new Vue({
                 .post("/upload", fd)
                 .then(function(res) {
                     datathis.images.unshift(res.data.image);
+                    datathis.title = "";
+                    datathis.username = "";
+                    datathis.description = "";
                 })
                 .catch(function(err) {
                     console.log("error in post upload");
