@@ -6,19 +6,23 @@
     <script src="/js/vue.js"></script>
 </head>
 <body>
-    <!-- <div id="head">
-        <p> T T L </p>
-        <h2> time to live <br> an archive of internet artefacts </h2>
-    </div> -->
+
 
     <div id="main">
 
-        <div id="uploadform">
+
+        <div id="header">
+
+            <div id="head">
+                <p> T T L </p>
+                <h2> time to live <br> an archive of internet artefacts </h2>
+            </div>
+
             <form id="upload">
                 <input v-model="title" type="text" name="title" placeholder="title">
                 <input v-model="description" type="text" name="description" placeholder="description">
                 <input v-model="username" type="text" name="username" placeholder="username">
-                <input @change="handleChange" type="file" name="file" accapt="image/*">
+                <input @change="handleChange" type="file" name="file" accept="image/*">
                 <button  @click.prevent.default="handleClick"> submit </button>
             </form>
         </div>
@@ -26,14 +30,36 @@
 
         <div id="imagecontainer">
             <li v-for="image in images">
-                <div class="singleimage">
+                <div class="singleimage" @click="setCurrentImage(image.id)">
                 <p class="imagetitle"> {{image.title}} </p>
                 <img class="singleimageimg" :src="image.url" alt="image"></img>
                 </div>
             </li>
         </div>
 
+        <image-modal
+        v-if="currentImage"
+        v-bind:id="currentImage"
+        @close="setCurrentImage(null)"
+        ></imageModal>
+
     </div>
+
+    <script type="text/x-template" id="imagemodaltemplate">
+        <div id="imagemodalcontainer" @click="sendClosingRequestToParent">
+            <div id="imagemodal">
+                    <img :src="image.url" alt="image">
+                    <p> {{image.title}} by {{image.username}} at {{image.created_at}} </p>
+                    <p> {{image.description}} </p>
+            
+                <form id="comment">
+                    <input v-model="comment" type="text" name="comment" placeholder="comment">
+                    <input v-model="username" type="text" name="username" placeholder="username">
+                    <button  @click.prevent.default="handleClick"> submit </button>
+                </form>
+            </div>
+        </div>
+    </script>
 
 
 
@@ -42,5 +68,6 @@
 
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/js/components.js"></script>
 </body>
 </html>

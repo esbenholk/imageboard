@@ -15,60 +15,60 @@ body {
     box-sizing: 0;
 }
 
-/* #head {
-    width: 500px;
-    height: 100px;
-    position: relative;
-    top: 30px;
-    left: 50px;
+#header {
+    postion: sticky;
+    top: 0;
+    left: 0;
+    background: var(--bordercolor);
+    display: grid;
+    grid-column: 2;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 #head p {
     color: white;
     text-shadow: 5px 5px rgb(255, 206, 241);
     font-size: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
     margin: 0;
 }
 #head h2 {
-    position: absolute;
-    top: 0;
-    left: 250px;
+    padding-left: 20px;
     font-size: 20px;
     color: rgb(255, 206, 241);
     text-shadow: 5px 5px rgb(158, 255, 253);
-} */
+    margin: 0;
+}
 
-/* #main {
-
-    top: 0;
-    left: 0;
-} */
 #upload {
-    width: 100%;
-    postion: sticky;
-    top: 0;
-    left: 0;
-    background: var(--bordercolor);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 #imagecontainer {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
     position: relative;
-    top: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    /* flex-wrap: wrap;
+    flex-direction: row; */
+    /* justify-content: space-around;
+    align-items: center; */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 #imagecontainer li {
     list-style-type: none;
 }
 .singleimage {
     border: 5px solid var(--bordercolor);
-    border-radius: 10%;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -85,8 +85,38 @@ body {
     color: var(--bordercolor);
     text-align: center;
 }
-
 .singleimage:hover {
     border: 5px solid yellow;
     color: yellow;
+}
+
+#imagemodalcontainer {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 206, 241, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#imagemodal {
+    background: linear-gradient(
+        260deg,
+        rgb(255, 206, 241),
+        rgb(132, 255, 169),
+        rgb(158, 255, 253),
+        white,
+        rgb(255, 206, 241)
+    );
+    width: 60%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#imagemodal img {
+    width: 500px;
 }

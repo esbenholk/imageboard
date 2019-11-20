@@ -27,6 +27,7 @@ const uploader = multer({
 });
 
 app.use(express.static("./public"));
+app.use(express.json());
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { title, desc, username } = req.body;
@@ -47,13 +48,23 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
-app.get("/images", (req, res) => {
+app.get("/images:param", (req, res) => {
     databaseActions
         .getImages()
         .then(results => {
             res.json(results.rows);
         })
         .catch(err => console.log("wrong db query"));
+});
+
+app.post("/image", (req, res) => {
+    console.log("look for dta from components.js", req.body.params.id);
+    databaseActions
+        .getImage(req.body.params.id)
+        .then(results => {
+            res.json(results.rows[0]);
+        })
+        .catch(err => console.log("wrong db query for imagemodal"));
 });
 
 app.listen(8080, () => console.log("imageboard awake"));

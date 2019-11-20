@@ -1,13 +1,13 @@
 new Vue({
     el: "#main",
     data: {
-        name: "esben",
         seen: true,
         images: [],
         title: "",
         description: "",
         username: "",
-        file: null
+        file: null,
+        currentImage: null
     },
     mounted: function() {
         var me = this;
@@ -42,6 +42,10 @@ new Vue({
         },
         handleChange: function(e) {
             this.file = e.target.files[0];
+        },
+        setCurrentImage: function(imageid) {
+            console.log("imageclicked", imageid);
+            this.currentImage = imageid;
         }
     }
 });
