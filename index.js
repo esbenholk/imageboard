@@ -48,7 +48,7 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
-app.post("/comment", (req, res) => {
+app.post("/commenting", (req, res) => {
     databaseActions
         .comment(req.body.comment, req.body.username, req.body.userid)
         .then(result => {
@@ -69,7 +69,16 @@ app.get("/images", (req, res) => {
         })
         .catch(err => console.log("wrong db query"));
 });
-
+app.get("/moreimages/:imageid", (req, res) => {
+    console.log(req.params.imageid);
+    databaseActions
+        .getMoreImages(req.params.imageid)
+        .then(results => {
+            console.log("getting images where id is less than...", results);
+            res.json(results.rows);
+        })
+        .catch(err => console.log("not getting images from db"));
+});
 app.get("/:id", (req, res) => {
     Promise.all([
         databaseActions.getImage(req.params.id),

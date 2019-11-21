@@ -30,10 +30,12 @@
 
         <div id="imagecontainer">
             <li v-for="image in images">
-                <div class="singleimage" @click="setCurrentImage(image.id)">
+                <a :href="'#'+ image.id">
+                <div class="singleimage">
                 <p class="imagetitle"> {{image.title}} </p>
                 <img class="singleimageimg" :src="image.url" alt="image"></img>
                 </div>
+            </a>
             </li>
         </div>
 
@@ -48,22 +50,25 @@
     <script type="text/x-template" id="imagemodaltemplate">
         <div id="imagemodalcontainer" @click.self="sendClosingRequestToParent">
             <div id="imagemodal">
+                <div>
                     <img :src="image.url" alt="image">
-                    <p> {{image.title}} by {{image.username}} at {{image.created_at}} </p>
+                    <p> {{image.title}} </p>
+                    <p class="authorandtime">by {{image.username}} at {{image.created_at}} </p>
                     <p> {{image.description}} </p>
-
+                </div>
                 <div id="comments">
                     <li v-for="comment in comments" id="singlecomment">
 
                         <p class="comment"> {{comment.comment}}</p>
-                        <p class="commentauther"> by {{comment.username}} at {{comment.created_at}}</p>
+                        <p class="authorandtimeno"> by {{comment.username}} at {{comment.created_at}}</p>
                     </li>
+                    <form id="comment">
+                        <input v-model="comment" type="text" name="comment" placeholder="comment">
+                        <input v-model="username" type="text" name="username" placeholder="username">
+                        <button  @click.prevent.default="handleClickComment"> comment </button>
+                    </form>
                 </div>
-                <form id="comment">
-                    <input v-model="comment" type="text" name="comment" placeholder="comment">
-                    <input v-model="username" type="text" name="username" placeholder="username">
-                    <button  @click.prevent.default="handleClickComment"> comment </button>
-                </form>
+
             </div>
         </div>
     </script>

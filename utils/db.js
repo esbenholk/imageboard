@@ -12,7 +12,13 @@ module.exports.comment = function(comment, username, imageId) {
 };
 
 module.exports.getImages = function() {
-    return database.query(`SELECT * FROM images`);
+    return database.query(`SELECT * FROM images ORDER BY id DESC LIMIT 3`);
+};
+module.exports.getMoreImages = function(serialId) {
+    return database.query(
+        `SELECT * FROM images WHERE id < $1 ORDER BY id DESC LIMIT 3`,
+        [serialId]
+    );
 };
 module.exports.getImage = function(id) {
     return database.query(`SELECT * FROM images WHERE id=$1`, [id]);

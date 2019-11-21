@@ -33,7 +33,7 @@ Vue.component("imageModal", {
         handleClickComment: function() {
             var me = this;
             axios
-                .post("/comment", {
+                .post("/commenting", {
                     comment: this.comment,
                     username: this.username,
                     userid: this.id
@@ -47,6 +47,22 @@ Vue.component("imageModal", {
                 .catch(function(err) {
                     console.log("error in comment");
                 });
+        }
+    },
+    watch: {
+        id: function() {
+            var me = this;
+            axios
+                .get(`/${me.id}`)
+                .then(function(response) {
+                    console.log(
+                        "got single image from server",
+                        response.data.image
+                    );
+                    me.image = response.data.image;
+                    me.comments = response.data.comments;
+                })
+                .catch(err => console.log("error", err));
         }
     }
 });
