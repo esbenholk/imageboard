@@ -16,10 +16,6 @@ Vue.component("imageModal", {
         axios
             .get(`/${me.id}`)
             .then(function(response) {
-                console.log(
-                    "got single image from server",
-                    response.data.image
-                );
                 me.image = response.data.image;
                 me.comments = response.data.comments;
             })
@@ -29,6 +25,8 @@ Vue.component("imageModal", {
     methods: {
         sendClosingRequestToParent: function() {
             this.$emit("close");
+            console.log("image id", this.image.id);
+            this.$emit("scrolltoelement", { scrollId: this.image.id });
         },
         handleClickComment: function() {
             var me = this;
@@ -55,10 +53,6 @@ Vue.component("imageModal", {
             axios
                 .get(`/${me.id}`)
                 .then(function(response) {
-                    console.log(
-                        "got single image from server",
-                        response.data.image
-                    );
                     me.image = response.data.image;
                     me.comments = response.data.comments;
                 })

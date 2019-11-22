@@ -63,27 +63,17 @@ new Vue({
         },
         infinitescroll: function() {
             var me = this;
-            console.log(
-                window.innerHeight,
-                pageYOffset,
-                document.body.scrollHeight
-            );
 
             if (
                 window.innerHeight + pageYOffset >=
                 document.body.scrollHeight
             ) {
-                console.log("lastimageid to search with", me.lastImage.id);
                 axios
                     .get(`/moreimages/${me.lastImage.id}`)
                     .then(function(response) {
                         me.lastImage = response.data[response.data.length - 1];
                         if (response.data.length > 0) {
                             me.images = me.images.concat(response.data);
-                            console.log(
-                                "infinitescroll gives more results",
-                                me.images
-                            );
                             me.infinitescroll();
                         }
                     })
@@ -94,6 +84,12 @@ new Vue({
                     me.infinitescroll();
                 }, 500);
             }
+        },
+        scrollToElement: function(emitobject) {
+            console.log("emition", emitobject);
+            var element = document.getElementById(`${emitobject.scrollId}`);
+            console.log("scrolling into view????", element);
+            element.scrollIntoView();
         }
     }
 });

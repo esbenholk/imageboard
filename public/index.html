@@ -31,7 +31,7 @@
         <div id="imagecontainer">
             <li v-for="image in images">
                 <a :href="'#'+ image.id">
-                <div class="singleimage">
+                <div :id="image.id" class="singleimage">
                 <p class="imagetitle"> {{image.title}} </p>
                 <img class="singleimageimg" :src="image.url" alt="image"></img>
                 </div>
@@ -42,6 +42,7 @@
         <image-modal
         v-if="currentImage"
         v-bind:id="currentImage"
+        @scrolltoelement="scrollToElement"
         @close="setCurrentImage(null)"
         ></imageModal>
 
@@ -50,17 +51,20 @@
     <script type="text/x-template" id="imagemodaltemplate">
         <div id="imagemodalcontainer" @click.self="sendClosingRequestToParent">
             <div id="imagemodal">
-                <div>
+                <div id="imageside">
                     <img :src="image.url" alt="image">
-                    <p> {{image.title}} </p>
+                    <div id="imagedescription">
                     <p class="authorandtime">by {{image.username}} at {{image.created_at}} </p>
+                    <p> {{image.title}} </p>
                     <p> {{image.description}} </p>
+                </div>
                 </div>
                 <div id="comments">
                     <li v-for="comment in comments" id="singlecomment">
-
+                        <div>
+                        <p class="authorandtime"> by {{comment.username}} at {{comment.created_at}}</p>
                         <p class="comment"> {{comment.comment}}</p>
-                        <p class="authorandtimeno"> by {{comment.username}} at {{comment.created_at}}</p>
+                    </div>
                     </li>
                     <form id="comment">
                         <input v-model="comment" type="text" name="comment" placeholder="comment">
