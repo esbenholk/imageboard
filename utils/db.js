@@ -23,6 +23,9 @@ module.exports.getMoreImages = function(serialId) {
 module.exports.getImage = function(id) {
     return database.query(`SELECT * FROM images WHERE id=$1`, [id]);
 };
+module.exports.getAmountImages = function() {
+    return database.query(`SELECT id FROM images`);
+};
 
 module.exports.getComments = function(id) {
     return database.query(`SELECT * FROM comments WHERE imageId=$1`, [id]);

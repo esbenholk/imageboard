@@ -82,14 +82,21 @@ app.get("/moreimages/:imageid", (req, res) => {
 app.get("/:id", (req, res) => {
     Promise.all([
         databaseActions.getImage(req.params.id),
-        databaseActions.getComments(req.params.id)
+        databaseActions.getComments(req.params.id),
+        databaseActions.getAmountImages()
     ])
         .then(results => {
-            console.log(results[1].rows[0]);
-            res.json({
-                image: results[0].rows[0],
-                comments: results[1].rows
-            });
+            if (results[0].rowCount == 0) {
+                res.json({
+                    error: true
+                });
+            } else {
+                res.json({
+                    image: results[0].rows[0],
+                    comments: results[1].rows,
+                    totalImageAmount: results[2].rows.length
+                });
+            }
         })
         .catch(err => console.log("wrong db query for imagemodal"));
 });
